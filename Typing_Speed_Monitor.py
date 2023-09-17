@@ -1,7 +1,7 @@
 # allow 3 keys_per_second = 10 keys every 3.3seconds
 # 300cpm = 300/60 = 5keys_per_second (60wpm)
 keys_per_second_threshold = 4
-checking_key_frequency = 10
+checking_key_frequency = 10 # check speed every x keys pressed
 time_threshold = checking_key_frequency/keys_per_second_threshold
 
 from pynput.keyboard import Key, Listener
@@ -18,7 +18,7 @@ def on_release(key):
 
   temp_keys.append(key)
   
-  if len(temp_keys) == key_threshold:
+  if len(temp_keys) == checking_key_frequency:
     duration = now() - start_time
 
     if duration < time_threshold:
