@@ -1,6 +1,6 @@
 # allow 3 keys_per_second = 10 keys every 3.3seconds
 # 300cpm = 300/60 = 5keys_per_second (60wpm)
-keys_per_second_threshold = 3
+keys_per_second_threshold = 4
 checking_key_frequency = 10
 time_threshold = checking_key_frequency/keys_per_second_threshold
 
@@ -27,6 +27,8 @@ def on_release(key):
       notification.message = "You are typing too fast"
 
       notification.send()
+
+      sleep(10)
     reset()
   
 def reset():
