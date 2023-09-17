@@ -14,10 +14,15 @@ def on_release(key):
   global temp_keys
   global start_time
 
+  print(len(temp_keys))
+
   temp_keys.append(key)
   
   if len(temp_keys) == checking_key_frequency:
-    duration = now() - start_time
+
+    duration = round(now() - start_time)
+
+    reset()
 
     if duration < time_threshold:
       notification = Notify()
@@ -27,7 +32,6 @@ def on_release(key):
       notification.send()
 
       sleep(10)
-    reset()
   
 def reset():
   global temp_keys
