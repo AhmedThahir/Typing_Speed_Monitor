@@ -1,8 +1,8 @@
-# 300cpm = 300/60 = 5cps
-
-# allow 20 keys every 5seconds = 2 cps
-time_threshold = 5
-key_threshold = 10
+# allow 3 keys_per_second = 10 keys every 3.3seconds
+# 300cpm = 300/60 = 5keys_per_second (60wpm)
+keys_per_second_threshold = 3
+checking_key_frequency = 10
+time_threshold = checking_key_frequency/keys_per_second_threshold
 
 from pynput.keyboard import Key, Listener
 from notifypy import Notify
@@ -12,13 +12,7 @@ from time import sleep, time as now
 temp_keys = None
 start_time = None
 
-def on_press(key):
-  pass
-  
 def on_release(key):
-  if key == Key.esc:
-    return False
-
   global temp_keys
   global start_time
 
@@ -33,7 +27,6 @@ def on_release(key):
       notification.message = "You are typing too fast"
 
       notification.send()
-      sleep(10)
     reset()
   
 def reset():
@@ -45,5 +38,5 @@ def reset():
     
 if __name__ == "__main__":
   reset()
-  with Listener(on_press=on_press, on_release=on_release) as listener:
+  with Listener(on_release=on_release) as listener:
     listener.join()
