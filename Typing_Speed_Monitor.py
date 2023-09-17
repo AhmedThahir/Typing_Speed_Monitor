@@ -7,18 +7,16 @@ from notifypy import Notify
 
 from time import sleep, time as now
 
-temp_keys = None
+count = None
 start_time = None
 
 def on_release(key):
-  global temp_keys
+  global count
   global start_time
 
-  print(len(temp_keys))
-
-  temp_keys.append(key)
+  count += 1
   
-  if len(temp_keys) == checking_key_frequency:
+  if count == checking_key_frequency:
 
     duration = round(now() - start_time)
 
@@ -34,10 +32,10 @@ def on_release(key):
       sleep(10)
   
 def reset():
-  global temp_keys
+  global count
   global start_time
 
-  temp_keys = []
+  count = 0
   start_time = now()
     
 if __name__ == "__main__":
