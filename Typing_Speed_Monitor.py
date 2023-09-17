@@ -1,6 +1,4 @@
-# allow 3 keys_per_second = 10 keys every 3.3seconds
-# 300cpm = 300/60 = 5keys_per_second (60wpm)
-keys_per_second_threshold = 4
+keys_per_second_threshold = 5 # 60wpm = 300cpm
 checking_key_frequency = 10 # check speed every x keys pressed
 time_threshold = checking_key_frequency/keys_per_second_threshold
 
