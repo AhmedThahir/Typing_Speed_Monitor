@@ -5,10 +5,20 @@ time_threshold = checking_key_frequency/keys_per_second_threshold
 from pynput.keyboard import Key, Listener
 from notifypy import Notify
 
-from time import sleep, time as now
+import keyboard
+
+import time
 
 count = None
 start_time = None
+
+def block():
+  for key in range(150):
+    keyboard.block_key(key)
+
+def unblock():
+  for key in range(150):
+    keyboard.unblock_key(key)
 
 def on_release(key):
   global count
@@ -18,7 +28,7 @@ def on_release(key):
   
   if count == checking_key_frequency:
 
-    duration = round(now() - start_time)
+    duration = time.time() - start_time
 
     reset()
 
@@ -29,14 +39,16 @@ def on_release(key):
 
       notification.send()
 
-      sleep(10)
+      block()
+      time.sleep(5)
+      unblock()
   
 def reset():
   global count
   global start_time
 
   count = 0
-  start_time = now()
+  start_time = time.time()
     
 if __name__ == "__main__":
   reset()
